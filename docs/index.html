@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PyGMT 快速導覽 — 好看又好玩的地圖繪製</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#8b5cf6; --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071026 0%, #0b1220 60%); color:#e6eef6; -webkit-font-smoothing:antialiased;}
+    .container{max-width:1100px; margin:32px auto; padding:28px}
+    header{display:flex;align-items:center;gap:18px}
+    .logo{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(11,12,20,0.6)}
+    .logo svg{filter:drop-shadow(0 6px 18px rgba(139,92,246,0.22));}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 12px}
+
+    .hero-map{height:300px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#052034,#033046);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.9);font-weight:700}
+    .feature-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    pre{overflow:auto;border-radius:10px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);}
+    code.hljs{font-size:13px}
+
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--accent),#06b6d4);color:#021024;padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero-map{height:220px}}
+
+    .example-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .badge{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;font-size:12px;color:var(--muted)}
+
+    /* subtle animation */
+    .sparkle{position:absolute;right:22px;top:18px;opacity:0.22}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden>
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13C5.5 9 9 7 12 6c3-1 7 0 9 4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="11.5" r="3.5" fill="white" opacity="0.12"/>
+          <path d="M6 19c2-3 6-4 9-4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>PyGMT 快速導覽 <span style="font-weight:300;color:var(--muted);font-size:14px">— 用 Python 做出漂亮地圖</span></h1>
+        <p class="lead">可讀性、視覺與趣味並重 — 範例、下載與一鍵複製。適合教學、報告與探索地球科學資料。</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main class="card">
+        <div style="position:relative">
+          <div class="hero-map" id="hero">
+            <div>
+              <div style="font-size:20px">PyGMT 範例展示</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:6px">（實際繪圖請在本機安裝 PyGMT 與 GMT）</div>
+            </div>
+          </div>
+          <svg class="sparkle" width="70" height="70" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 4.6L18 8l-4.2 1.4L12 14l-1.8-4.6L6 8l4.2-1.4L12 2z" fill="white" opacity="0.06"/></svg>
+        </div>
+
+        <section style="margin-top:18px">
+          <h3>為什麼選 PyGMT？</h3>
+          <ul style="color:var(--muted);line-height:1.6">
+            <li>基於 GMT — 專業級地圖排版、等高線、地形著色。</li>
+            <li>Pythonic API — 與 pandas、xarray 無縫整合，適合科學工作流程。</li>
+            <li>可重現、可把圖當出版品質輸出。</li>
+          </ul>
+
+          <div class="feature-list" style="margin-top:10px">
+            <div class="chip">等高線</div>
+            <div class="chip">地形著色</div>
+            <div class="chip">地震/火山疊圖</div>
+            <div class="chip">地理資料處理</div>
+            <div class="chip">互動化（Jupyter）</div>
+          </div>
+        </section>
+
+        <section style="margin-top:18px">
+          <div class="example-meta">
+            <h3>快速開始範例</h3>
+            <div class="badge">Python 3.8+</div>
+          </div>
+
+          <p style="color:var(--muted);margin-top:6px">下面範例示範如何用 PyGMT 畫出簡單地圖、疊加地震點與標註火山（可複製或下載）。</p>
+
+          <div style="margin-top:10px">
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <button class="btn" onclick="copyCode('code1')">複製範例 A</button>
+              <button class="btn-ghost" onclick="downloadCode('example_basic.py', code1_text)">下載 .py</button>
+            </div>
+            <pre><code id="code1" class="hljs python"># example_basic.py
+import pygmt
+fig = pygmt.Figure()
+fig.coast(region=[120,122,22,24], projection='M6i', land='gray', water='white')
+fig.basemap(frame=True, ticks='af')
+fig.show()  # 或用 fig.savefig('out.png')
+</code></pre>
+          </div>
+
+          <div style="margin-top:14px">
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <button class="btn" onclick="copyCode('code2')">複製範例 B</button>
+              <button class="btn-ghost" onclick="downloadCode('example_tecto.py', code2_text)">下載 .py</button>
+            </div>
+            <pre><code id="code2" class="hljs python"># example_tecto.py — 地形 + 火山
+import pygmt
+import pandas as pd
+volcanoes = pd.DataFrame({'longitude':[120.8,121.1],'latitude':[23.3,24.0],'name':['V1','V2']})
+fig = pygmt.Figure()
+fig.grdimage('@earth_relief_01m', region=[118,126,20,26], projection='M8i', shading=True)
+fig.plot(data=volcanoes, style='c0.25c', color='red', pen='black')
+fig.text(x=volcanoes['longitude'], y=volcanoes['latitude'], text=volcanoes['name'], font='9p,Helvetica-Bold', dy=0.2)
+fig.show()
+</code></pre>
+          </div>
+
+          <div style="margin-top:14px">
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <button class="btn" onclick="copyCode('code3')">複製範例 C</button>
+              <button class="btn-ghost" onclick="downloadCode('example_quakes.py', code3_text)">下載 .py</button>
+            </div>
+            <pre><code id="code3" class="hljs python"># example_quakes.py — 地震散點圖
+import pygmt
+import pandas as pd
+quakes = pd.DataFrame({'lon':[121.2,121.6],'lat':[24.1,23.9],'mag':[4.5,5.1]})
+fig = pygmt.Figure()
+fig.coast(region=[120,123,23,25], projection='M8i', land='lightgray', water='white')
+fig.plot(x=quakes['lon'], y=quakes['lat'], size=quakes['mag'].map(lambda m: 0.8*m), style='cc', color='orange', pen='0.5p,black')
+fig.show()
+</code></pre>
+          </div>
+
+          <p style="color:var(--muted);font-size:13px;margin-top:12px">提示：若要使用地形資料（例如 <code>@earth_relief_01m</code>），需要 GMT 資料庫可用或先手動下載。</p>
+        </section>
+
+        <section style="margin-top:18px">
+          <h3>教學小遊戲 — 挑戰</h3>
+          <p style="color:var(--muted)">把上面任一範例改成：在地圖上用不同大小與顏色標示 3 個地震震級，並在圖例說明震級分級。完成後把圖存為 PNG。</p>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn-ghost" onclick="alert('小挑戰提示：使用 fig.legend() 建立圖例，plot 時參考 mag 轉換 size。')">提示</button>
+            <button class="btn" onclick="alert('好！你可以在本機執行 .py 檔，或我可以幫你產生更完整的範例檔案。')">需要範例檔案</button>
+          </div>
+        </section>
+
+      </main>
+
+      <aside class="card">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <h3>快速 checklist</h3>
+            <ul style="color:var(--muted);line-height:1.7;margin:8px 0 0;padding-left:18px">
+              <li>安裝 PyGMT：<code>conda install -c conda-forge pygmt</code></li>
+              <li>安裝 GMT（通常與 PyGMT 同源）：參考官方文件</li>
+              <li>在 Jupyter 中使用：<code>from pygmt import Figure</code></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>教學資源</h3>
+            <div style="color:var(--muted);font-size:14px">官方文件、範例與社群討論是最好的開始。建議資源：</div>
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px">
+              <a class="chip" href="https://www.pygmt.org" target="_blank">PyGMT 官方網站</a>
+              <a class="chip" href="https://www.generic-mapping-tools.org" target="_blank">GMT 官方</a>
+              <a class="chip" href="https://www.pygmt.org/gallery" target="_blank">Gallery 範例</a>
+            </div>
+          </div>
+
+          <div>
+            <h3>設定/小工具</h3>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+              <button class="btn" onclick="toggleTheme()">切換深色 / 淺色（示範）</button>
+              <button class="btn-ghost" onclick="downloadAll()">下載所有範例 (.zip)</button>
+            </div>
+          </div>
+
+          <div style="margin-top:6px;color:var(--muted);font-size:13px">小提醒：此頁為靜態說明；要產生圖檔，請在本機或雲端環境執行 Python。</div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="card" style="margin-top:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>Made with ❤️ for geoscience teaching • 範例可自由修改</div>
+        <div style="color:var(--muted);font-size:13px">版本 1.0 — 2025</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll()</script>
+  <script>
+    // extract code text for download
+    const code1_text = document.getElementById('code1').innerText;
+    const code2_text = document.getElementById('code2').innerText;
+    const code3_text = document.getElementById('code3').innerText;
+
+    function copyCode(id){
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.innerText).then(()=>{
+        const btn = event.currentTarget;
+        const orig = btn.innerText;
+        btn.innerText = '已複製 ✓';
+        setTimeout(()=> btn.innerText = orig,1200);
+      })
+    }
+
+    function downloadCode(filename, text){
+      const blob = new Blob([text], {type: 'text/x-python'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function downloadAll(){
+      // 這個簡單示範會打包成多個 blob 供 user 下載（單一 zip 需要 server-side 或更複雜的 client lib）
+      downloadCode('example_basic.py', code1_text);
+      setTimeout(()=>downloadCode('example_tecto.py', code2_text),500);
+      setTimeout(()=>downloadCode('example_quakes.py', code3_text),900);
+      alert('已開始下載三個範例檔案（瀏覽器可能會封鎖多個自動下載）。')
+    }
+
+    function toggleTheme(){
+      const root = document.documentElement;
+      if(root.style.getPropertyValue('--bg') === ''){
+        root.style.setProperty('--bg','#f7fafc');
+      }
+      // playful demo: flash the hero area
+      const hero = document.getElementById('hero');
+      hero.style.transform = 'scale(0.995)';
+      setTimeout(()=>hero.style.transform = '',250);
+      alert('這只是示範：正式主題切換可替換變數與顏色。')
+    }
+  </script>
+</body>
+</html>
